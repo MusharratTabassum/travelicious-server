@@ -93,6 +93,21 @@ async function run() {
             res.json(result);
         });
 
+        //UPDATE API 
+        app.put('/bookings/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedBooking = req.body;
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updatedField = {
+                $set: {
+                    status: updatedBooking.status
+                },
+            };
+            const result = await bookingCollection.updateOne(filter, updatedField, options)
+            console.log('updated', id)
+            res.json(result)
+        })
 
     } finally {
         // await client.close();
