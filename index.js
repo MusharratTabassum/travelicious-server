@@ -8,7 +8,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 //middleware
 app.use(cors());
@@ -32,6 +32,7 @@ async function run() {
         const database = client.db("traveliciousBD");
         const serviceCollection = database.collection("services");
         const bookingCollection = database.collection("bookings");
+        const testimonialCollection = database.collection("testimonials");
 
 
         //-------------------------- Service API ------------------------------//
@@ -108,6 +109,7 @@ async function run() {
             console.log('updated', id)
             res.json(result)
         })
+
 
     } finally {
         // await client.close();
